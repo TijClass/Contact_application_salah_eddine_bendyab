@@ -1,10 +1,25 @@
 <?php
+    /**
+     * appConfig
+     *
+     * @param  mixed $var : the var is the name of file and path of elemnt target in global array
+     * @return void : value of element target in the array
+     */
+
     function appConfig($var)
     {
-        $includ=require(__DIR__.'\..\config\app.php');
         $index=explode(".",$var);
+        $dir=__DIR__."\..\config\\".$index[0].".php";
+        if (!file_exists($dir)) {
+            return null;
+        }
+        $includ=require($dir);
+        unset($index[0]); //for delete name of the config file
         $last=$includ;
         foreach ($index as $item){
+            if (!isset($last[$item])) {
+                return null;
+            }
             $last=$last[$item];
         }
 
@@ -12,6 +27,6 @@
     }
 
     //test
-    // print_r(appConfig('test.hi'));
+    // print_r(appConfig("conficFile.path.logo"));
     
 ?>

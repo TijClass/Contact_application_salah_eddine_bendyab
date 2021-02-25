@@ -16,7 +16,7 @@
 <!-- contant -->
     <div class="container">
         <div class="starter-template head text-center">
-            <img src="<?= appConfig("path.logo") ?>" alt="logo" id="logo">
+            <img src="<?= appConfig("app.path.logo") ?>" alt="logo" id="logo">
             <h1>WELCOME TITLE</h1>
         </div>
         <div class="row mainblock">
