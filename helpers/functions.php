@@ -26,6 +26,11 @@
         return $last;
     }
 
+    function CreateSession($sessionName, $var)
+    {
+        $_SESSION[$sessionName] = $var;
+    }
+
     //test
     // print_r(appConfig("conficFile.path.logo"));
     
