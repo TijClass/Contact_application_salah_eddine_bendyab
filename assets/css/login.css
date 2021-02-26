@@ -1,0 +1,101 @@
+*{
+    padding: 0;
+    margin: 0;
+    color: rgb(255, 255, 255);
+}
+
+:root{
+    --color-main: #03326C;
+    --color-tow: #358EF9;
+    --color-tree: #318BF7;
+    --color-last:#7CB4F9;
+}
+
+.head{
+    padding: 3rem 1.5rem;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: baseline;
+	align-content: stretch;
+}
+
+h1{
+    color: var(--color-main);
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 15px;
+}
+
+#logo{
+    height: 80px;
+}
+
+.mainblock{
+    background-color: var(--color-main);
+    border-radius: 18px;
+}
+
+.mainblock-hr{
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 0; 
+    border-top: 1px solid var(--color-tow);
+    background-color: var(--color-tow);
+}
+
+.btn-main{
+    color: #fff;
+    background-color: var(--color-tree);
+    border-color: var(--color-tree);
+}
+
+.left-side{
+    height: 70vh;
+}
+
+.right-side{
+    height: 70vh;
+}
+
+.form-signin{
+    border-radius: 18px;
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: var(--color-tow);
+}
+
+.form-signin-title{
+    margin-left: 100px;
+}
+
+.btn-costem{
+    align-items: center;
+    margin: auto;
+    margin-top: 13px;
+}
+
+.form-control{
+    border-radius: 0%;
+    border:none;
+    color: #fff;
+    /* background-color: var(--color-tow); */
+    background-color: #03326c12;
+    border-bottom: 2px solid var(--color-main) ;
+}
+
+.form-control:active ,.form-control:focus{
+    border-radius: 0%;
+    color: floralwhite;
+    box-shadow: none;
+    background-color: var(--color-tow);
+    border-bottom: 2px solid var(--color-main) ;
+}
+
+.right-side-h2{
+    /* border-left: dotted ; */
+    border-left: dotted ;
+}
