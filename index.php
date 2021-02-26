@@ -5,7 +5,7 @@
         'home'  => 'view\home.php',
         'test/{id}'  => 'view\one\tow.php',
         // 'test/user/{id}'  => 'view\one\tow.php',
-        'test/{id}/delete'  => 'view\one\tow.php',
+        'test/user/{id}/delete/{staus}/{par}'  => 'view\one\tow.php',
 
     ];
     // get : http://localhost:3030/one/tow?key=val
@@ -31,28 +31,22 @@
                             $good++;
                         }
                 }
-                if ($countPathParam-1 == $good) {
-                    print_r($routeParam);
-                    $p=0;
-                    foreach ($routeParam as  $arg) {
-                        if ($arg[0] == '{') {
-                            $arg=ltrim($arg, '{');
-                            $arg=chop($arg, '}');
-                            echo $arg;
-                            $_GET[$arg]=$pathParam[$p];
-                            include $myRoutes[$key];
-                        }
-                    $p++;
+                $p=0;
+                foreach ($routeParam as  $arg) {
+                    if ($arg[0] == '{') {
+                        $arg=ltrim($arg, '{');
+                        $arg=chop($arg, '}');
+                        // echo $arg;
+                        $_GET[$arg]=$pathParam[$p];
                     }
-                    // break;
+                $p++;
                 }
-                // echo "</br>".$good."</br>";
-                // print_r($key);
+
+                include $myRoutes[$key];
+                    // break;
             }
         }
-        // echo "</br>";
-        // echo "</br>";
         // print_r($_GET);
-        // return header("HTTP/1.0 404 Not Found");
+        return header("HTTP/1.0 404 Not Found");
     }
 ?>
