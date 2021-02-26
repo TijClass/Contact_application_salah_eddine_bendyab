@@ -27,7 +27,7 @@
         </div>
         <div class="col-4 form-group">
             <input type="search" class="form-control w-50 mr-2" placeholder="Search ..." name="" id="search">
-            <A class="btn btn-primary" type="submit">Add A Person</A>
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Add A Person</button>
         </div>
     </div>
     <table class="table table-striped">
@@ -106,6 +106,7 @@
             </tr>
         </tbody>
     </table>
+    <?php include('./add_person.php'); ?>
     </div>
 <!-- contant -->
 

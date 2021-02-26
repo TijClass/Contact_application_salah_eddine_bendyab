@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+    color: rgb(255, 255, 255);
+}
+
+:root{
+    --color-main: #03326C;
+    --color-tow: #358EF9;
+    --color-tree: #318BF7;
+    --color-last:#7CB4F9;
+}
+
+label{
+    color: var(--color-main);
+}
+
+.modal-header{
+    background-color: var(--color-last);
+}
+
+.btn-close{
+    background-color: var(--color-last);
+}
+
+.btn-save{
+    background-color: var(--color-tree);
+}
