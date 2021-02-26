@@ -3,7 +3,10 @@
     $myRoutes=[
         'login' => 'view\login.php',
         'home'  => 'view\home.php',
-        'test'  => 'view\one\tow.php'
+        'test/{id}'  => 'view\one\tow.php',
+        'test/user/{id}'  => 'view\one\tow.php',
+        'test/{id}'  => 'view\one\tow.php',
+
     ];
     // get : http://localhost:3030/one/tow?key=val
     $linkReq=$_SERVER['REQUEST_URI'];   // get : /one/tow?key=val
@@ -13,6 +16,37 @@
     if (isset($myRoutes[$path[0]])) {
         include $myRoutes[$path[0]]; //routing
     }else{
-        return header("HTTP/1.0 404 Not Found");
+        $pathParam=explode("/",$path[0]);
+        $countPathParam=count($pathParam);
+        // print_r($pathParam);
+        
+        foreach ($myRoutes as $key => $value) {
+            $good=0;
+            $routeParam=explode("/",$key);
+            if (count($routeParam) == $countPathParam) {
+                // echo '</br> ok';
+                for ($i=0; $i < $countPathParam; $i++) { 
+                    if ($pathParam[$i] == $routeParam[$i]) {
+                            // echo '</br> good : '.$pathParam[$i].' == '.$routeParam[$i];
+                            $good++;
+                        }
+                }
+                if ($countPathParam-1 == $good) {
+                    $value=$routeParam[$countPathParam-1];
+                    $value=ltrim($value, '{');
+                    $value=chop($value, '}');
+                    // echo $value;
+                    $_GET[$value]=$pathParam[$countPathParam-1];
+                    include $myRoutes[$key];
+                    // break;
+                }
+                // echo "</br>".$good."</br>";
+                // print_r($key);
+            }
+        }
+        // echo "</br>";
+        // echo "</br>";
+        // print_r($_GET);
+        // return header("HTTP/1.0 404 Not Found");
     }
 ?>
