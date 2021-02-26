@@ -17,6 +17,6 @@
             echo $myRoutes[$path[0]]; //routing
         }
     }else{
-        echo "404";
+        return header("HTTP/1.0 404 Not Found");;
     }
 ?>
