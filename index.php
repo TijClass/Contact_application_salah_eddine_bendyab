@@ -4,8 +4,8 @@
         'login' => 'view\login.php',
         'home'  => 'view\home.php',
         'test/{id}'  => 'view\one\tow.php',
-        'test/user/{id}'  => 'view\one\tow.php',
-        'test/{id}'  => 'view\one\tow.php',
+        // 'test/user/{id}'  => 'view\one\tow.php',
+        'test/{id}/delete'  => 'view\one\tow.php',
 
     ];
     // get : http://localhost:3030/one/tow?key=val
@@ -32,12 +32,18 @@
                         }
                 }
                 if ($countPathParam-1 == $good) {
-                    $value=$routeParam[$countPathParam-1];
-                    $value=ltrim($value, '{');
-                    $value=chop($value, '}');
-                    // echo $value;
-                    $_GET[$value]=$pathParam[$countPathParam-1];
-                    include $myRoutes[$key];
+                    print_r($routeParam);
+                    $p=0;
+                    foreach ($routeParam as  $arg) {
+                        if ($arg[0] == '{') {
+                            $arg=ltrim($arg, '{');
+                            $arg=chop($arg, '}');
+                            echo $arg;
+                            $_GET[$arg]=$pathParam[$p];
+                            include $myRoutes[$key];
+                        }
+                    $p++;
+                    }
                     // break;
                 }
                 // echo "</br>".$good."</br>";
