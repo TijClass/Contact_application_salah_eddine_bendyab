@@ -10,8 +10,8 @@
     if ($page == "index") {
         echo '
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/ffc0b239b9.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./assets/css/index.css">
+        <link rel="stylesheet" href="./assets/css/add_person.css">
         ';
     }
 ?>
