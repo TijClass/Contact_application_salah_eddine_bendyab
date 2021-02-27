@@ -28,7 +28,14 @@
 
     function CreateSession($sessionName, $var)
     {
+        session_start();
         $_SESSION[$sessionName] = $var;
+        return true;
+    }
+
+    function getSession($sessionName)
+    {
+        return $_SESSION[$sessionName];
     }
 
     //test
