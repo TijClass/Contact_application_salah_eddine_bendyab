@@ -4,7 +4,8 @@
         'login' => 'view\login.php',
         'home'  => 'view\home.php',
         'test/{id}'  => 'view\one\tow.php',
-        // 'test/user/{id}'  => 'view\one\tow.php',
+        // 'test/user/{id}/delete/{staus}/{par}'  => 'view\one\tow.php',
+        'test/user/{id}/add/{staus}/{par}'  => 'view\one\tow.php',
         'test/user/{id}/delete/{staus}/{par}'  => 'view\one\tow.php',
 
     ];
@@ -12,41 +13,42 @@
     $linkReq=$_SERVER['REQUEST_URI'];   // get : /one/tow?key=val
     $linkReq = ltrim($linkReq, '/');    // get : one/tow?key=val (delete first /)
     $path=explode("?",$linkReq);        // separt the get parame
-    // print_r($path);
-    if (isset($myRoutes[$path[0]])) {
+    // // print_r($path);
+    if (isset($myRoutes[$path[0]])) { // if don't have eny parame in the link 
         include $myRoutes[$path[0]]; //routing
     }else{
         $pathParam=explode("/",$path[0]);
         $countPathParam=count($pathParam);
-        // print_r($pathParam);
-        
+        // //print_r($pathParam);
         foreach ($myRoutes as $key => $value) {
-            $good=0;
+            $good[$key]=0;
             $routeParam=explode("/",$key);
-            if (count($routeParam) == $countPathParam) {
-                // echo '</br> ok';
+            if (count($routeParam) == $countPathParam) {  // Compares the count of items in the link (for optimize)
+                // // echo '</br> ok';
                 for ($i=0; $i < $countPathParam; $i++) { 
-                    if ($pathParam[$i] == $routeParam[$i]) {
-                            // echo '</br> good : '.$pathParam[$i].' == '.$routeParam[$i];
-                            $good++;
+                    if ($pathParam[$i] == $routeParam[$i]) { // Compares the items in the link
+                            // //echo '</br> good : '.$pathParam[$i].' == '.$routeParam[$i];
+                            $good[$key]++; // if Matches and point
                         }
                 }
                 $p=0;
                 foreach ($routeParam as  $arg) {
-                    if ($arg[0] == '{') {
+                    if ($arg[0] == '{') {            // create the get parametre :delete { } and create
                         $arg=ltrim($arg, '{');
                         $arg=chop($arg, '}');
-                        // echo $arg;
                         $_GET[$arg]=$pathParam[$p];
                     }
                 $p++;
                 }
-
-                include $myRoutes[$key];
-                    // break;
             }
         }
-        // print_r($_GET);
+        // // print_r($good);
+        if (isset($good) and max($good) != 0) { // If we are the largest equals 0 , It means that no link has been endorsed
+            $root= array_search(max($good),$good); // This is the key to the right path, because he is the one who has obtained the most number of validations
+            // //echo $root; // this the key of the true route
+            include $myRoutes[$root];
+        }
+        // // print_r($_GET);
         return header("HTTP/1.0 404 Not Found");
     }
 ?>
