@@ -3,6 +3,7 @@
     $myRoutes=[
         'login' => 'view\login.php',
         'home'  => 'view\home.php',
+        'loguot'  => 'view\logout.php',
         'test/{id}'  => 'view\one\tow.php',
         // 'test/user/{id}/delete/{staus}/{par}'  => 'view\one\tow.php',
         'test/user/{id}/add/{staus}/{par}'  => 'view\one\tow.php',

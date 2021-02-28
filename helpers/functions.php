@@ -35,7 +35,7 @@
 
     function getSession($sessionName)
     {
-        return $_SESSION[$sessionName];
+        return $_SESSION[$sessionName] ?? false;
     }
 
     //test

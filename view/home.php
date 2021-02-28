@@ -2,7 +2,7 @@
     $page="index";
     include('./components/header.php');
 
-    if (!getSession('login')) {
+    if (getSession('login') === false) {
         header("location:login");
         die;
     }
@@ -80,7 +80,7 @@
         <a class="navbar-brand text-light " href="#">
             <img src="<?= appConfig("app.path.logo") ?>" width="50" height="50" class="d-inline-block align-top mr-3" alt="">
                 <?= appConfig("app.info.name") ?>
-                <a class="btn btn-logout" href="#" type="submit">Logout</a>
+                <a class="btn btn-logout" href="/loguot" type="submit">Logout</a>
         </a>
     </nav>
     <div class="container my-5" style="color: red;">

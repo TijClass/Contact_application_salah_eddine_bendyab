@@ -16,7 +16,7 @@
 
         if (mysqli_num_rows($result) != 0) {
             if ($email === $data['email'] and $password === $data['password']) {
-                CreateSession('login','true');
+                CreateSession('login',true);
                 CreateSession('user',$data);
                 header("location:home");
             }else{
