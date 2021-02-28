@@ -1,5 +1,17 @@
-<?php 
+<?php
     $page="index";
+    include('./components/header.php');
+
+    if (!getSession('login')) {
+        header("location:login");
+        die;
+    }
+    include('./core/init.php');
+    $query="select * from contacts";
+	$result=mysqli_query($connect,$query);
+    if(! $result){
+	    die("Error:".$query. mysqli_connect_error());
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +20,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page ?></title>
-    <?php include('./components/header.php'); ?>
     <?php include_once('./components/style.php'); ?>
 </head>
 <body>
@@ -20,10 +31,10 @@
                 <a class="btn btn-logout" href="#" type="submit">Logout</a>
         </a>
     </nav>
-    <div class="container my-5">
+    <div class="container my-5" style="color: red;">
     <div class="row">
         <div class="col-8">
-            <h2 class="">Contact List</h2>
+            <h2 class="">Contact List : <?=getSession('user')['name']?> </h2>
         </div>
         <div class="col-4 form-group">
             <input type="search" class="form-control w-50 mr-2" placeholder="Search ..." name="" id="search">
@@ -44,69 +55,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>wachenton pariz</td>
-                <td>+212612345678</td>
-                <td>Famile</td>
-                <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
-            </tr>
+            <?php
+                while ($data=mysqli_fetch_assoc($result) ) {
+                    echo'
+                        <tr>
+                            <td>'.$data['id'].'</td>
+                            <td>'.$data['first_name'].'</td>
+                            <td>'.$data['last_name'].'</td>
+                            <td>'.$data['email'].'</td>
+                            <td>'.$data['address'].'</td>
+                            <td>'.$data['phone'].'</td>
+                            <td>'.$data['group'].'</td>
+                            <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
+                        </tr>
+                    ';
+                }
+            ?>
         </tbody>
     </table>
-    <?php include('./add_person.php'); ?>
+    <?php include('./view/add_person.php'); ?>
     </div>
 <!-- contant -->
 
