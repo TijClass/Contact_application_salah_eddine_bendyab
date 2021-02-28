@@ -7,6 +7,44 @@
         die;
     }
     include('./core/init.php');
+
+/* -------------------------------------------------------------------------- */
+/*                                 add person                                 */
+/* -------------------------------------------------------------------------- */
+    $error=[];
+    if (isset($_POST['add'])) {
+        if (!isset($_POST['f_name'])) {
+            $error['f_name']="this filed is required";
+        }else if (!isset($_POST['l_name'])) {
+            $error['l_name']="this filed is required";
+        }else if (!isset($_POST['email'])) {
+            $error['email']="this filed is required";
+        }else if (!isset($_POST['address'])) {
+            $error['address']="this filed is required";
+        }else if (!isset($_POST['phone'])) {
+            $error['phone']="this filed is required";
+        }else if (!isset($_POST['group'])) {
+            $error['group']="this filed is required";
+        }else if (!isset($_POST['notes'])) {
+            $error['notes']="this filed is required";
+        }else{
+            foreach ($_POST as $key => $value) {
+                $_POST[$key]=htmlentities($_POST[$key]);
+            }
+            $query="INSERT INTO `contacts` (`id`, `first_name`, `last_name` , `email` , `address` , `phone`, `group` , `notes` ,`date_added`) 
+                    VALUES (NULL, '".$_POST["f_name"]."' , '".$_POST["l_name"]."' , '".$_POST["email"]."', '".$_POST["address"]."' , '".$_POST["phone"]."' , '".$_POST["group"]."' , '".$_POST["notes"]."' , current_timestamp())";
+            $result=mysqli_query($connect,$query);
+            if(! $result){
+                die("Error:".$query. mysqli_connect_error());
+            }else{
+                header("location:home");
+            }
+        }
+
+    }
+
+/* -------------------------------------------------------------------------- */
+
     $query="select * from contacts";
 	$result=mysqli_query($connect,$query);
     if(! $result){
