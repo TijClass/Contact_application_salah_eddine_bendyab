@@ -1,4 +1,5 @@
 <?php
+    session_start();
     /**
      * appConfig
      *
@@ -29,6 +30,12 @@
     function CreateSession($sessionName, $var)
     {
         $_SESSION[$sessionName] = $var;
+        return true;
+    }
+
+    function getSession($sessionName)
+    {
+        return $_SESSION[$sessionName] ?? false;
     }
 
     //test

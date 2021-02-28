@@ -1,5 +1,32 @@
 <?php 
     $page="login";
+    $error=[];
+    include('./components/header.php');
+    
+    if (isset($_POST['login']) and isset($_POST['email']) and isset($_POST['password']) ) {
+        include './core/init.php';
+        $email=htmlentities($_POST['email']);
+        $password=htmlentities($_POST['password']);
+
+        $query="select * from users where email='".$email."'";
+    
+        $result=mysqli_query($connect,$query);
+        
+        $data=mysqli_fetch_assoc($result);
+
+        if (mysqli_num_rows($result) != 0) {
+            if ($email === $data['email'] and $password === $data['password']) {
+                CreateSession('login',true);
+                CreateSession('user',$data);
+                header("location:home");
+            }else{
+                $error['name']='you info is incorect';
+            }
+        }else{
+            $error['name']='you info is incorect';
+        }
+        print_r($data);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +35,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page ?></title>
-    <?php include('./components/header.php'); ?>
     <?php include_once('./components/style.php'); ?>
 </head>
 <body>
@@ -28,14 +54,17 @@
             </div>
             <div class="col-7 right-side right-side-h2">
                 <h2 class="mt-5 form-signin-title">Login :</h2>
-                <form class="form-signin mt-5">
+                <form class="form-signin mt-5" method="post" action="./login">
                     <div class="form-label-group mt-2 mx-3">
                         <label for="inputEmail" class="mb-3">Email address :</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="" required="" autofocus="">
+                        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="" required="" autofocus="">
+                        <div class="invalid-feedback" style="display: block; color:#fff">
+                            <?=$error['name'] ?? null?>
+                        </div>
                     </div>
                     <div class="form-label-group mt-4 mx-3">
                         <label for="inputPassword" class="mb-3" >Password :</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="" required="" autofocus="">
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="" required="" autofocus="">
                     </div>
                     <div class="row">
                         <div class="col-8 checkbox mt-3 text-center">
@@ -44,7 +73,7 @@
                             </label>
                         </div>
                         <div class="col-4 btn-costem">
-                            <button class="btn btn-primary" type="submit">Sign in</button>
+                            <button class="btn btn-primary" type="submit" name="login">Sign in</button>
                         </div>
                         
                     </div>
