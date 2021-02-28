@@ -89,7 +89,7 @@
             <h2 class="">Contact List : <?=getSession('user')['name']?> </h2>
         </div>
         <div class="col-4 form-group">
-            <input type="search" class="form-control w-50 mr-2" placeholder="Search ..." name="" id="search">
+            <input type="text" class="form-control w-50 mr-2" onkeyup="myFunction()" placeholder="Search for First name ..." name="" id="search">
             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Add A Person</button>
         </div>
     </div>
@@ -97,8 +97,8 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>First name</th>
+                <th>Last name</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Phone</th>
@@ -106,7 +106,7 @@
                 <th>Option</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             <?php
                 while ($data=mysqli_fetch_assoc($result) ) {
                     echo'
@@ -128,7 +128,26 @@
     <?php include('./view/add_person.php'); ?>
     </div>
 <!-- contant -->
-
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 <?php include_once('./components/script.php'); ?>
 </body>
 </html>
