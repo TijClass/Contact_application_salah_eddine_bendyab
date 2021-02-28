@@ -45,6 +45,20 @@
 
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                                delete person                               */
+/* -------------------------------------------------------------------------- */
+    if (isset($_GET['idOfPerson'])) {
+        $queryDelete="DELETE FROM `contacts` WHERE `contacts`.`id` = ".$_GET['idOfPerson']."";
+        $resultDelete=mysqli_query($connect,$queryDelete);
+        if(! $resultDelete){
+            die("Error:".$queryDelete. mysqli_connect_error());
+        }else{
+            header("location:home");
+        }
+    }
+/* -------------------------------------------------------------------------- */
+
     $query="select * from contacts";
 	$result=mysqli_query($connect,$query);
     if(! $result){
@@ -104,7 +118,7 @@
                             <td>'.$data['address'].'</td>
                             <td>'.$data['phone'].'</td>
                             <td>'.$data['group'].'</td>
-                            <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i class="far fa-trash-alt"></i></a></td>
+                            <td><a href="#"><i class="far fa-edit"></i></a> <a href="/home?idOfPerson='.$data['id'].'"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                     ';
                 }
